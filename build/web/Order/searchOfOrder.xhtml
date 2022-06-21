@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      >
+    <head>
+        <title>Search for a car order</title>
+    </head>
+    <body>
+        <h1 style="color:white; background-color:#525D76;"> Search for a Car Order</h1>
+        <h:form>
+            <table border="0" style='padding: 2em 0'>
+                <tr>
+                    <td>
+                        <h:outputLabel value="Order #: "/>
+                    </td>
+                    <td>
+                        <h:inputText value="#{customerOrderController.customerOrder.id}" required="true"/>
+                    </td>
+                </tr>
+            </table>
+            <h:commandButton value="Search for Car Order" action="#{customerOrderController.searchCustomerOrder(customerOrderController.customerOrder.getId())}" />
+        </h:form>
+        <hr style='margin-top:1em'/>
+        <h:link outcome="listOfOrders.xhtml" value="List of Car Orders"/>
+        |
+        <h:link outcome="/index.xhtml" value="Main Page"/>
+    </body>
+</html>

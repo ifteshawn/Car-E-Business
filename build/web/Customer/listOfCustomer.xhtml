@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+    <head>
+        <title>List of Customers</title>
+        <style>
+            td{padding: 0 2em;}
+            thead{background-color: lightgray;}
+        </style>
+    </head>
+    <body>
+        <h1 style="color:white; background-color:#525D76;"> List of Customers</h1>
+
+        <h:form id="displayNewCustomerMessage" style="color:lightseagreen; padding-bottom: 1em;">
+            <h:outputText id="newCustomerMessage" value=""/>
+            <h:message for="newCustomerMessage"/>
+        </h:form>
+        <h:dataTable value="#{customerController.customerList}" var="customerList" border="0" style='margin-bottom:1em;'>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Name"/>
+                </f:facet>
+                <h:outputText value="#{customerList.name}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Address"/>
+                </f:facet>
+                <h:outputText value="#{customerList.address}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Orders"/>
+                </f:facet>
+                <h:outputText value="#{customerOrderController.getCustomerOrderCount(customerList.id)}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Action"/>
+                </f:facet>
+                <h:form>
+                    <h:commandLink action="#{customerController.getCustomerDetails(customerList.id)}" value="View Details">
+                        <f:actionListener binding="#{customerOrderController.getCustomerOrderByCustomerId(customerList.id)}" />
+                    </h:commandLink>
+                </h:form>
+            </h:column>
+        </h:dataTable>
+        <h:outputText  value="Total Customer: #{fn:length(customerController.customerList)}"/>
+        <hr style='margin-top:1em'/>
+        <h:form>
+            <h:link outcome="createNewCustomer.xhtml" value="Create a new customer"/>
+            |
+            <h:link outcome="/index.xhtml" value="Main Page"/>
+        </h:form>
+    </body>
+</html>
+

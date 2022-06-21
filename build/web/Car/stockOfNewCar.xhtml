@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+    <head>
+        <title>The Stock of brand new cars</title>
+        <style>
+            td{padding: 0 2em;}
+            thead{background-color: lightgray;}
+        </style>
+    </head>
+    <body>
+        <h1 style="color:white; background-color:#525D76;"> The Stock of brand new cars</h1>
+
+        <h:form id="displayNewCarMessage" style="color:lightseagreen; padding-bottom: 1em;">
+            <h:outputText id="newCarMessage" value=""/>
+            <h:message for="newCarMessage"/>
+        </h:form>
+        <h:dataTable value="#{carController.newCarList}" var="carList" border="0" style='margin-bottom:1em;'>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Make"/>
+                </f:facet>
+                <h:outputText value="#{carList.make}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Model"/>
+                </f:facet>
+                <h:outputText value="#{carList.model}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Reference Number"/>
+                </f:facet>
+                <h:form>
+                    <h:commandLink action="#{carController.getNewCarDetails(carList.id)}" value="#{carList.id}" />
+                </h:form>
+            </h:column>
+        </h:dataTable>
+        <h:outputText  value="Total brand new cars: #{fn:length(carController.newCarList)}"/>
+        <hr style='margin-top:1em'/>
+        <h:form>
+            <h:link outcome="createNewCar.xhtml" value="Create a brand new car"/>
+            |
+            <h:link outcome="/index.xhtml" value="Home Page"/>
+        </h:form>
+    </body>
+</html>
+
